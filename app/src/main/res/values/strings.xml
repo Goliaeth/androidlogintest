@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Login Test App</string>
+    <string name="email_placeholder">example@gmail.com</string>
+    <string name="password_placeholder">password</string>
+    <string name="name_placeholder">Name</string>
+    <string name="btn_login_text">Login</string>
+    <string name="btn_register_text">Register</string>
+    <string name="register_now_text_view">Don`t have an account? Register Now</string>
 </resources>
