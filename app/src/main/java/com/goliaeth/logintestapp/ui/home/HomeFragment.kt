@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.goliaeth.logintestapp.data.network.Resource
 import com.goliaeth.logintestapp.data.network.UserAPI
 import com.goliaeth.logintestapp.data.repository.UserRepository
@@ -43,7 +42,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
                         binding.progressbar.visible(true)
                     }
                     is Resource.Failure -> {
-                        Toast.makeText(requireContext(), "Request failure", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Request failure", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
     }
 
     private fun updateUI(data: Data) {
-        with (binding) {
+        with(binding) {
             idTextView.text = data.id.toString()
             emailTextView.text = data.email
             firstNameTextView.text = data.first_name

@@ -9,10 +9,10 @@ import com.goliaeth.logintestapp.data.repository.UserRepository
 import com.goliaeth.logintestapp.data.responces.UserResponse
 import kotlinx.coroutines.launch
 
-class HomeViewModel (
+class HomeViewModel(
     private val repository: UserRepository
 
-): ViewModel() {
+) : ViewModel() {
 
     private val _user: MutableLiveData<Resource<UserResponse>> = MutableLiveData()
     val user: LiveData<Resource<UserResponse>>
