@@ -1,12 +1,21 @@
 package com.goliaeth.logintestapp.ui.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.goliaeth.logintestapp.R
-
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.goliaeth.logintestapp.data.network.Resource
+import com.goliaeth.logintestapp.data.network.UserAPI
+import com.goliaeth.logintestapp.data.repository.UserRepository
+import com.goliaeth.logintestapp.data.responces.Data
+import com.goliaeth.logintestapp.databinding.FragmentHomeBinding
+import com.goliaeth.logintestapp.ui.auth.ActivityLifeCycleObserver
+import com.goliaeth.logintestapp.ui.base.BaseFragment
+import com.goliaeth.logintestapp.ui.visible
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 
 /**
@@ -14,14 +23,55 @@ import com.goliaeth.logintestapp.R
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserRepository>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver {
+
+            binding.progressbar.visible(false)
+
+            viewModel.getUser()
+
+            viewModel.user.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Success -> {
+                        binding.progressbar.visible(false)
+                        updateUI(it.value.data)
+                    }
+                    is Resource.Loading -> {
+                        binding.progressbar.visible(true)
+                    }
+                    is Resource.Failure -> {
+                        Toast.makeText(requireContext(), "Request failure", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
+
+    private fun updateUI(data: Data) {
+        with (binding) {
+            idTextView.text = data.id.toString()
+            emailTextView.text = data.email
+            firstNameTextView.text = data.first_name
+            lastNameTextView.text = data.last_name
+        }
+    }
+
+    override fun getViewModel() = HomeViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentHomeBinding.inflate(inflater, container, false)
+
+    override fun getFragmentRepository(): UserRepository {
+        //@todo don`t use runBlocking
+        val token = runBlocking { userPreferences.authToken.first() }
+        val api = remoteDataSource.buildAPI(UserAPI::class.java, token)
+        return UserRepository(api)
+    }
+
 
 }

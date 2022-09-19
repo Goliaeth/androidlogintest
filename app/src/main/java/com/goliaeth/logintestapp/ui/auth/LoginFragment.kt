@@ -16,12 +16,6 @@ import com.goliaeth.logintestapp.ui.home.HomeActivity
 import com.goliaeth.logintestapp.ui.startNewActivity
 import com.goliaeth.logintestapp.ui.visible
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
     override fun onAttach(context: Context) {
@@ -39,6 +33,9 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
                     }
                     is Resource.Failure -> {
                         Toast.makeText(requireContext(), "Login failure", Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Loading -> {
+                        TODO("fffff")
                     }
                 }
             }
