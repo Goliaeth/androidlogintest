@@ -3,7 +3,7 @@ package com.goliaeth.logintestapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.goliaeth.logintestapp.auth.AuthActivity
+import com.goliaeth.logintestapp.ui.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
 

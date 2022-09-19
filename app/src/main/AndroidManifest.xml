@@ -16,7 +16,7 @@
         android:theme="@style/Theme.LoginTestApp"
         tools:targetApi="31">
         <activity
-            android:name=".auth.AuthActivity"
+            android:name="com.goliaeth.logintestapp.ui.auth.AuthActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

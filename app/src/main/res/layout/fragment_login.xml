@@ -5,7 +5,7 @@
     android:id="@+id/frameLoginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.LoginFragment">
+    tools:context=".ui.auth.LoginFragment">
 
     <EditText
         android:id="@+id/login_text_edit"

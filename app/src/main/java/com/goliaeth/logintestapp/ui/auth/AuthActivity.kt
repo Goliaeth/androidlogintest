@@ -1,4 +1,4 @@
-package com.goliaeth.logintestapp.auth
+package com.goliaeth.logintestapp.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.goliaeth.logintestapp.auth
+package com.goliaeth.logintestapp.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
