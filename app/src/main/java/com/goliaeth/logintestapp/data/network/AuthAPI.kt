@@ -1,6 +1,6 @@
-package com.goliaeth.logintestapp.network
+package com.goliaeth.logintestapp.data.network
 
-import com.goliaeth.logintestapp.responces.LoginResponse
+import com.goliaeth.logintestapp.data.responces.LoginResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

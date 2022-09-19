@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.goliaeth.logintestapp.databinding.FragmentLoginBinding
-import com.goliaeth.logintestapp.network.AuthAPI
-import com.goliaeth.logintestapp.network.Resource
-import com.goliaeth.logintestapp.repository.AuthRepository
+import com.goliaeth.logintestapp.data.network.AuthAPI
+import com.goliaeth.logintestapp.data.network.Resource
+import com.goliaeth.logintestapp.data.repository.AuthRepository
 import com.goliaeth.logintestapp.ui.base.BaseFragment
+import kotlinx.coroutines.launch
 
 
 /**
@@ -24,16 +26,18 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                    lifecycleScope.launch {
+                        userPreferences.saveAuthToken(it.value.token)
+                    }
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), "Login failure", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
         binding.loginButton.setOnClickListener {
             val email = binding.loginTextEdit.text.toString().trim()

@@ -1,6 +1,6 @@
-package com.goliaeth.logintestapp.repository
+package com.goliaeth.logintestapp.data.repository
 
-import com.goliaeth.logintestapp.network.AuthAPI
+import com.goliaeth.logintestapp.data.network.AuthAPI
 
 class AuthRepository(
     private val api: AuthAPI

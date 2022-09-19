@@ -1,6 +1,6 @@
-package com.goliaeth.logintestapp.repository
+package com.goliaeth.logintestapp.data.repository
 
-import com.goliaeth.logintestapp.network.Resource
+import com.goliaeth.logintestapp.data.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

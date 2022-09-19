@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goliaeth.logintestapp.network.Resource
-import com.goliaeth.logintestapp.repository.AuthRepository
-import com.goliaeth.logintestapp.responces.LoginResponse
+import com.goliaeth.logintestapp.data.network.Resource
+import com.goliaeth.logintestapp.data.repository.AuthRepository
+import com.goliaeth.logintestapp.data.responces.LoginResponse
 import kotlinx.coroutines.launch
 
 class AuthViewModel(

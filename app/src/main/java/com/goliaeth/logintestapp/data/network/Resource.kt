@@ -1,4 +1,4 @@
-package com.goliaeth.logintestapp.network
+package com.goliaeth.logintestapp.data.network
 
 import okhttp3.ResponseBody
 

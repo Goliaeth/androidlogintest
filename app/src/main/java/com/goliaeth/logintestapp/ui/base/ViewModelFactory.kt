@@ -2,8 +2,8 @@ package com.goliaeth.logintestapp.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.goliaeth.logintestapp.repository.AuthRepository
-import com.goliaeth.logintestapp.repository.BaseRepository
+import com.goliaeth.logintestapp.data.repository.AuthRepository
+import com.goliaeth.logintestapp.data.repository.BaseRepository
 import com.goliaeth.logintestapp.ui.auth.AuthViewModel
 import java.lang.IllegalArgumentException
 

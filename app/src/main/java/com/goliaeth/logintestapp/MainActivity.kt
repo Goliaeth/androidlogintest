@@ -3,6 +3,10 @@ package com.goliaeth.logintestapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
+import com.goliaeth.logintestapp.data.UserPreferences
 import com.goliaeth.logintestapp.ui.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        finish()
-        startActivity(Intent(this, AuthActivity::class.java))
+        val userPreferences = UserPreferences(this)
+        userPreferences.authToken.asLiveData().observe(this, Observer {
+
+            Toast.makeText(this, it ?: "Token is Null", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AuthActivity::class.java))
+
+        })
+
+
     }
 }
