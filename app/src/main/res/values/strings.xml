@@ -6,4 +6,6 @@
     <string name="btn_login_text">Login</string>
     <string name="btn_register_text">Register</string>
     <string name="register_now_text_view">Don`t have an account? Register Now</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
