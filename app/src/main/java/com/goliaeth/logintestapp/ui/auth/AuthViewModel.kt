@@ -2,16 +2,16 @@ package com.goliaeth.logintestapp.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goliaeth.logintestapp.data.network.Resource
 import com.goliaeth.logintestapp.data.repository.AuthRepository
 import com.goliaeth.logintestapp.data.responces.LoginResponse
+import com.goliaeth.logintestapp.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
     private val repository: AuthRepository
-): ViewModel() {
+): BaseViewModel(repository) {
 
     private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 

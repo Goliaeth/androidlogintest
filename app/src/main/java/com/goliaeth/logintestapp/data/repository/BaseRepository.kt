@@ -1,5 +1,6 @@
 package com.goliaeth.logintestapp.data.repository
 
+import com.goliaeth.logintestapp.data.network.AuthAPI
 import com.goliaeth.logintestapp.data.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,5 +24,9 @@ abstract class BaseRepository {
                 }
             }
         }
+    }
+
+    suspend fun logout(api: AuthAPI) = safeApiCall {
+        api.logout()
     }
 }
