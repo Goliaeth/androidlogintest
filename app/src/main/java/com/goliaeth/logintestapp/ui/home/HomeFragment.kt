@@ -1,7 +1,9 @@
 package com.goliaeth.logintestapp.ui.home
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -24,30 +26,28 @@ import kotlinx.coroutines.runBlocking
  */
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserRepository>() {
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            binding.progressbar.visible(false)
+        binding.progressbar.visible(false)
 
-            viewModel.getUser()
+        viewModel.getUser()
 
-            viewModel.user.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Success -> {
-                        binding.progressbar.visible(false)
-                        updateUI(it.value.data)
-                    }
-                    is Resource.Loading -> {
-                        binding.progressbar.visible(true)
-                    }
-                    is Resource.Failure -> {
-                        Toast.makeText(requireContext(), "Request failure", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+        viewModel.user.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    binding.progressbar.visible(false)
+                    updateUI(it.value.data)
+                }
+                is Resource.Failure -> {
+                    Toast.makeText(requireContext(), "user response failure", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                is Resource.Loading -> {
+                    binding.progressbar.visible(true)
                 }
             }
-        })
+        }
     }
 
     private fun updateUI(data: Data) {
