@@ -4,10 +4,8 @@ import com.goliaeth.logintestapp.data.network.UserAPI
 
 class UserRepository(
     private val api: UserAPI
-): BaseRepository() {
+) : BaseRepository(api) {
 
-    suspend fun getUser() = safeApiCall {
-        api.getUser()
-    }
+    suspend fun getUser() = safeApiCall { api.getUser() }
 
 }

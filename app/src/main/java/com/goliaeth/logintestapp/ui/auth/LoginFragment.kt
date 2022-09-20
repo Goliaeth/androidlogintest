@@ -1,27 +1,32 @@
 package com.goliaeth.logintestapp.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.goliaeth.logintestapp.data.network.AuthAPI
+import com.goliaeth.logintestapp.R
 import com.goliaeth.logintestapp.data.network.Resource
-import com.goliaeth.logintestapp.data.repository.AuthRepository
 import com.goliaeth.logintestapp.databinding.FragmentLoginBinding
-import com.goliaeth.logintestapp.ui.base.BaseFragment
 import com.goliaeth.logintestapp.ui.enable
 import com.goliaeth.logintestapp.ui.handleApiError
 import com.goliaeth.logintestapp.ui.home.HomeActivity
 import com.goliaeth.logintestapp.ui.startNewActivity
 import com.goliaeth.logintestapp.ui.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
+@AndroidEntryPoint
+class LoginFragment : Fragment(R.layout.fragment_login) {
+
+    private lateinit var binding: FragmentLoginBinding
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentLoginBinding.bind(view)
+
         binding.progressbar.visible(false)
         binding.loginButton.enable(false)
 
@@ -30,7 +35,10 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        viewModel.saveAuthToken(it.value.token)
+                        viewModel.saveAccessTokens(
+                            it.value.access_token!!,
+                            it.value.refresh_token!!
+                        )
                         requireActivity().startNewActivity(HomeActivity::class.java)
                     }
                 }
@@ -56,14 +64,5 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         val password = binding.passwordTextEdit.text.toString().trim()
         viewModel.login(email, password)
     }
-
-    override fun getViewModel() = AuthViewModel::class.java
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentLoginBinding.inflate(inflater, container, false)
-
-    override fun getFragmentRepository() = AuthRepository(remoteDataSource.buildAPI(AuthAPI::class.java), userPreferences)
 
 }

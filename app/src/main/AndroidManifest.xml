@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,11 +17,9 @@
         android:theme="@style/Theme.LoginTestApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.HomeActivity"
-            android:exported="false" />
+            android:name=".ui.home.HomeActivity" />
         <activity
-            android:name="com.goliaeth.logintestapp.ui.auth.AuthActivity"
-            android:exported="false" />
+            android:name=".ui.auth.AuthActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

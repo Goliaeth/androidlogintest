@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.goliaeth.logintestapp.data.network.Resource
 import com.goliaeth.logintestapp.ui.auth.LoginFragment
-import com.goliaeth.logintestapp.ui.base.BaseFragment
+import com.goliaeth.logintestapp.ui.home.HomeActivity
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 fun<A: Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
@@ -38,6 +40,12 @@ fun View.snackbar(
     snackbar.show()
 }
 
+fun Fragment.logout() = lifecycleScope.launch {
+    if (activity is HomeActivity) {
+        (activity as HomeActivity).performLogout()
+    }
+}
+
 fun Fragment.handleApiError(
     failure: Resource.Failure,
     retry: (() -> Unit)? = null
@@ -48,7 +56,7 @@ fun Fragment.handleApiError(
             if (this is LoginFragment) {
                 requireView().snackbar("You've entered incorrect email or password")
             } else {
-                (this as BaseFragment<*, *, *>).logout()
+                logout()
             }
         }
         else -> {
